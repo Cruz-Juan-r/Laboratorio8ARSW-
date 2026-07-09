@@ -298,18 +298,18 @@ Estado de los entregables solicitados:
 
 | # | Entregable | Estado | Dónde queda resuelto |
 |---|---|---|---|
-| 1 | Diagrama de arquitectura implementada | ✅ Resuelto | Sección 4 |
-| 2 | Captura del Auto Scaling Group | 📎 Adjuntar captura | — |
-| 3 | Captura del Load Balancer | 📎 Adjuntar captura | — |
-| 4 | Captura del Target Group con targets Healthy | 📎 Adjuntar captura | — |
-| 5 | Evidencia de respuesta desde varias instancias | 📎 Adjuntar salida del `curl` de la sección 8.1 | — |
-| 6 | Evidencia de escalamiento o intento de escalamiento | 📎 Adjuntar captura de `Activity` del ASG | — |
-| 7 | Evidencia de métricas en CloudWatch | 📎 Adjuntar capturas de métricas | — |
-| 8 | Evidencia de falla simulada y recuperación | 📎 Adjuntar capturas antes/después de detener la instancia | — |
-| 9 | Análisis de escalabilidad | ✅ Resuelto | Sección 9.1 y 9.2 |
-| 10 | Análisis de alta disponibilidad | ✅ Resuelto | Sección 9.4 |
-| 11 | Análisis de observabilidad | ✅ Resuelto | Sección 9.3 |
-| 12 | Propuesta de mejora para producción | ✅ Resuelto | Sección 15 |
+| 1 | Diagrama de arquitectura implementada |  Resuelto | Sección 4 |
+| 2 | Captura del Auto Scaling Group | | — |
+| 3 | Captura del Load Balancer |  | — |
+| 4 | Captura del Target Group con targets Healthy |  | — |
+| 5 | Evidencia de respuesta desde varias instancias || — |
+| 6 | Evidencia de escalamiento o intento de escalamiento | | — |
+| 7 | Evidencia de métricas en CloudWatch |  | — |
+| 8 | Evidencia de falla simulada y recuperación |  | — |
+| 9 | Análisis de escalabilidad |  Resuelto | Sección 9.1 y 9.2 |
+| 10 | Análisis de alta disponibilidad |  Resuelto | Sección 9.4 |
+| 11 | Análisis de observabilidad |  Resuelto | Sección 9.3 |
+| 12 | Propuesta de mejora para producción |  Resuelto | Sección 15 |
 
 Los ítems marcados como "Adjuntar" requieren evidencia visual (capturas de pantalla) tomada directamente de la consola de AWS durante la ejecución real del laboratorio; el análisis conceptual que las acompaña ya está resuelto en las secciones referenciadas.
 
