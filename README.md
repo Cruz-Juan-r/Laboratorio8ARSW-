@@ -294,24 +294,42 @@ Disponibilidad (*availability*) y tolerancia a fallos (*fault tolerance / resili
 
 ## 12. Reto final — Informe técnico
 
-Estado de los entregables solicitados:
+<img width="675" height="802" alt="image" src="https://github.com/user-attachments/assets/0ab13a76-e6b2-40d0-8d54-e9ab3cb1a7ce" />
 
-| # | Entregable | Estado | Dónde queda resuelto |
-|---|---|---|---|
-| 1 | Diagrama de arquitectura implementada |  Resuelto | Sección 4 |
-| 2 | Captura del Auto Scaling Group | | — |
-| 3 | Captura del Load Balancer |  | — |
-| 4 | Captura del Target Group con targets Healthy |  | — |
-| 5 | Evidencia de respuesta desde varias instancias || — |
-| 6 | Evidencia de escalamiento o intento de escalamiento | | — |
-| 7 | Evidencia de métricas en CloudWatch |  | — |
-| 8 | Evidencia de falla simulada y recuperación |  | — |
-| 9 | Análisis de escalabilidad |  Resuelto | Sección 9.1 y 9.2 |
-| 10 | Análisis de alta disponibilidad |  Resuelto | Sección 9.4 |
-| 11 | Análisis de observabilidad |  Resuelto | Sección 9.3 |
-| 12 | Propuesta de mejora para producción |  Resuelto | Sección 15 |
+<img width="702" height="570" alt="image" src="https://github.com/user-attachments/assets/a052044a-974d-47e6-9a23-5be3ee638945" />
 
-Los ítems marcados como "Adjuntar" requieren evidencia visual (capturas de pantalla) tomada directamente de la consola de AWS durante la ejecución real del laboratorio; el análisis conceptual que las acompaña ya está resuelto en las secciones referenciadas.
+<img width="643" height="120" alt="image" src="https://github.com/user-attachments/assets/7120f67f-1305-44f1-8a14-0e3743b97f53" />
+
+<img width="871" height="293" alt="image" src="https://github.com/user-attachments/assets/23145efe-1005-44a5-9499-204c2cfcb773" />
+
+<img width="1008" height="575" alt="image" src="https://github.com/user-attachments/assets/c53077af-4218-4d96-a2bb-b58dfe76d109" />
+
+<img width="990" height="427" alt="image" src="https://github.com/user-attachments/assets/ce8bbf4f-7013-4776-805a-a861e339a8b0" />
+
+<img width="1042" height="210" alt="image" src="https://github.com/user-attachments/assets/a26fdc94-7af3-44b8-9941-c9077ee81da3" />
+
+<img width="878" height="132" alt="image" src="https://github.com/user-attachments/assets/88bedd63-e898-4f3c-9c22-f603e0730183" />
+
+<img width="283" height="451" alt="image" src="https://github.com/user-attachments/assets/c5dd7293-5007-4d29-86fe-f2b02a3816bf" />
+
+<img width="1002" height="341" alt="image" src="https://github.com/user-attachments/assets/57f83a05-30e6-4ec4-bdf4-36902246e62c" />
+
+<img width="633" height="132" alt="image" src="https://github.com/user-attachments/assets/05afb044-9617-471c-a4c4-dc13ee238686" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 13. Limpieza de recursos
 
