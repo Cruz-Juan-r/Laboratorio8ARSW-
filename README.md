@@ -293,50 +293,74 @@ Disponibilidad (*availability*) y tolerancia a fallos (*fault tolerance / resili
 </details>
 
 ## 12. Reto final — Informe técnico
+
+**Creación del Security Group `sg-alb-scalability`**, asociado a la VPC del laboratorio y con la descripción "protege el Load Balancer".
 <img width="1197" height="461" alt="image" src="https://github.com/user-attachments/assets/551633b1-004b-446c-a688-a90a66342925" />
 
+**Reglas del Security Group `sg-ec2-scalability`**: entrada HTTP (80) solo desde `sg-alb-scalability`, SSH (22) restringido a "Mi IP" para depuración, y salida de todo el tráfico habilitada.
 <img width="1551" height="707" alt="image" src="https://github.com/user-attachments/assets/47c4f2ec-5569-4675-a2f2-1b1aa31db7b5" />
 
+Misma configuración de reglas de entrada/salida de `sg-ec2-scalability`, verificada nuevamente antes de continuar.
 <img width="1551" height="707" alt="image" src="https://github.com/user-attachments/assets/6bd3c06e-a22b-446f-a450-ece199e574a0" />
 
+**Página principal de la aplicación** servida por Apache en la instancia base, mostrando el Instance ID, la Availability Zone (`us-east-1d`) y el estado "Servicio disponible".
 <img width="1058" height="770" alt="image" src="https://github.com/user-attachments/assets/b11cec06-3d34-4e3e-be99-802642ef936a" />
 
+**Endpoint `/health`** de la instancia respondiendo `OK`, usado por el Target Group para las comprobaciones de estado.
 <img width="707" height="252" alt="image" src="https://github.com/user-attachments/assets/f56838c7-5530-4de3-a3eb-58ac5cc1b37b" />
 
+**AMI `ami-web-scalability-arsw`** creada a partir de la instancia base validada, en estado "Disponible".
 <img width="1617" height="311" alt="image" src="https://github.com/user-attachments/assets/0b5756a5-8063-4265-be4c-4f54311abdaf" />
 
+**Launch Template `lt-web-scalability`** creado a partir de la AMI, listo para ser usado por el Auto Scaling Group.
 <img width="1606" height="178" alt="image" src="https://github.com/user-attachments/assets/c9ef7873-495c-4224-9397-7d41a30a1bd3" />
 
+**Revisión de destinos al crear el Target Group**, aún sin instancias registradas (0 destinos), ya que estas se agregarán automáticamente a través del Auto Scaling Group.
 <img width="1577" height="416" alt="image" src="https://github.com/user-attachments/assets/462f7233-b712-443a-8a0a-e2c5259dccc6" />
 
+**Confirmación de creación del Target Group `tg-scalability-ha`** (HTTP:80), todavía sin Load Balancer asociado ni destinos.
 <img width="1601" height="712" alt="image" src="https://github.com/user-attachments/assets/efc49508-0ade-4f6b-88be-4cc0f5ddc1e2" />
 
+**Confirmación de creación del Application Load Balancer `alb-scalability-ha`**, Internet-facing, en estado "Aprovisionándose", desplegado en dos zonas de disponibilidad (`us-east-1a` y `us-east-1b`).
 <img width="1598" height="706" alt="image" src="https://github.com/user-attachments/assets/06d626b2-4700-4eee-a850-cedba8b713d8" />
 
+**Mapa de recursos del ALB**: el listener `HTTP:80` enruta mediante una regla hacia el Target Group `tg-scalability-ha`, que aún no tiene destinos registrados.
 <img width="1387" height="531" alt="image" src="https://github.com/user-attachments/assets/e0a02b80-dcb0-486f-afd8-f1ff00419335" />
 
+**Auto Scaling Group `asg-web-scalability`** recién creado, basado en `lt-web-scalability`, con capacidad deseada 2, mínimo 2 y máximo 3.
 <img width="1862" height="322" alt="image" src="https://github.com/user-attachments/assets/cf7aa01a-e73b-44c3-a05a-4ca809639462" />
 
+**Listado de instancias EC2** mostrando cómo el Auto Scaling Group lanza nuevas instancias (una ya con "3/3 checks passed") junto a otras instancias ajenas al laboratorio.
 <img width="1607" height="497" alt="image" src="https://github.com/user-attachments/assets/20ea2a83-64fa-4cc0-b217-774c401618ae" />
 
+**Target Group `tg-scalability-ha` con 2 destinos totales**, ambos "En buen estado" (Healthy), ya registrados automáticamente por el Auto Scaling Group.
 <img width="1610" height="622" alt="image" src="https://github.com/user-attachments/assets/6073b028-241b-47ba-be7a-73884ba30c12" />
 
+**Destinos registrados del Target Group**: las dos instancias en estado `Healthy`, distribuidas en las zonas `us-east-1a` y `us-east-1b`.
 <img width="1608" height="490" alt="image" src="https://github.com/user-attachments/assets/a07ff6d7-4f9e-4bf4-8c7f-63580d749df6" />
 
+**Prueba de acceso a través del DNS del ALB** (`alb-scalability-ha-...elb.amazonaws.com`), confirmando que el balanceador distribuye correctamente el tráfico hacia las instancias.
 <img width="1097" height="488" alt="image" src="https://github.com/user-attachments/assets/bbb3245f-4168-43b1-af51-dcd7f6eca903" />
 
+**Métrica de CloudWatch `CPUUtilization`** durante la prueba de carga, mostrando el incremento sostenido por encima del umbral del 50%.
 <img width="1580" height="657" alt="image" src="https://github.com/user-attachments/assets/9c32a883-db17-4f6b-8fe4-496c1d57d4e9" />
 
+**Métrica `GroupInServiceInstances`** del Auto Scaling Group, evidenciando el salto de 2 a 3 instancias en servicio como respuesta al escalamiento.
 <img width="1772" height="838" alt="image" src="https://github.com/user-attachments/assets/218bea00-1e4d-47bf-a332-da6883f62967" />
 
+**Panel comparativo de métricas del ASG** (`GroupMinSize`, `GroupMaxSize`, `GroupDesiredCapacity`, `GroupInServiceInstances`), confirmando que la capacidad deseada y las instancias en servicio pasaron de 2 a 3.
 <img width="1440" height="362" alt="image" src="https://github.com/user-attachments/assets/6c263139-0f8e-4b39-93a3-98217f35f871" />
 
+**Listado de instancias EC2** durante la prueba de alta disponibilidad, mostrando distintos estados (en ejecución / detenidas) mientras el Auto Scaling Group reacciona.
 <img width="1590" height="191" alt="image" src="https://github.com/user-attachments/assets/9b4aa9e4-46cd-4305-ba23-9ca09fbc86d2" />
 
+Mismo listado de instancias EC2, verificado nuevamente durante la prueba de falla.
 <img width="1590" height="191" alt="image" src="https://github.com/user-attachments/assets/531b02f7-7548-446d-b035-9625b14f569a" />
 
+**Aplicación respondiendo con normalidad** ("Servicio disponible") tras la prueba, confirmando la recuperación del sistema.
 <img width="945" height="356" alt="image" src="https://github.com/user-attachments/assets/252550bd-89d0-4d90-aa64-d7e7784b819f" />
 
+**Historial de actividad del Auto Scaling Group**: se observa cómo se termina la instancia no saludable ("Waiting For ELB Connection Draining") y se lanza automáticamente una nueva instancia de reemplazo.
 <img width="1575" height="702" alt="image" src="https://github.com/user-attachments/assets/16b77b4b-bab1-488e-99c7-ea630ace71a3" />
 
 
